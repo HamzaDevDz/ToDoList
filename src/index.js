@@ -1,58 +1,42 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import Background from "./Background";
+import Smart from "./Smart";
+import Input from "./Input";
 
-class Square extends React.Component {
-    render() {
-        return (
-            <button className="square">
-                {/* TODO */}
-            </button>
-        );
-    }
-}
-
-class Board extends React.Component {
-    renderSquare(i) {
-        return <Square />;
+class ToDoList extends React.Component {
+    state = {
+        title: 'To Do List',
+        list_toStart : ['bb', '45'],
+        list_inProgress : [1,2],
+        list_Done : []
     }
 
-    render() {
-        const status = 'Next player: X';
-
-        return (
-            <div>
-                <div className="status">{status}</div>
-                <div className="board-row">
-                    {this.renderSquare(0)}
-                    {this.renderSquare(1)}
-                    {this.renderSquare(2)}
-                </div>
-                <div className="board-row">
-                    {this.renderSquare(3)}
-                    {this.renderSquare(4)}
-                    {this.renderSquare(5)}
-                </div>
-                <div className="board-row">
-                    {this.renderSquare(6)}
-                    {this.renderSquare(7)}
-                    {this.renderSquare(8)}
-                </div>
-            </div>
-        );
+    handleAdd = str => {
+        const zebzoub = Array.from(this.state.list_toStart);
+        zebzoub.push(str);
+        this.setState({list_toStart: zebzoub});
     }
-}
 
-class Game extends React.Component {
     render() {
         return (
-            <div className="game">
-                <div className="game-board">
-                    <Board />
-                </div>
-                <div className="game-info">
-                    <div>{/* status */}</div>
-                    <ol>{/* TODO */}</ol>
+            <div className='big_container'>
+                <Background />
+                <h1>
+                    {this.state.title}
+                </h1>
+                <Input onAjouter={this.handleAdd} />
+                <div className='big_smart'>
+                    <Smart title={'To Start'}
+                           list={this.state.list_toStart}
+                    />
+                    <Smart title={'In Progress'}
+                           list={this.state.list_inProgress}
+                    />
+                    <Smart title={'Done'}
+                           list={this.state.list_Done}
+                    />
                 </div>
             </div>
         );
@@ -62,6 +46,6 @@ class Game extends React.Component {
 // ========================================
 
 ReactDOM.render(
-    <Game />,
+    <ToDoList />,
     document.getElementById('root')
 );
