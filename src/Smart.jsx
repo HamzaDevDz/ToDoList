@@ -8,9 +8,16 @@ class Smart extends Component{
                 <h2>
                     {this.props.title}
                 </h2>
-                <div className='points'>
-                    {this.props.list.map(function (p) {
-                        return <p draggable='true'>{p}</p>;
+                <div className='points'
+                     onDragOver={this.props.dragOver}
+                     onDrop={this.props.drop}
+                >
+                    {this.props.list.map(p => {
+                        return <p
+                            id={p.id}
+                            draggable='true'
+                            onDragStart={this.props.drag}
+                        >{p.val}</p>;
                     })}
                 </div>
             </div>
